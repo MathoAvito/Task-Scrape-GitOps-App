@@ -26,7 +26,7 @@ backend:
     imagePullPolicy: Always
     resources: {}
     containerPort: 5000
-    secretEnvName: natours-secret
+    secretEnvName: ""
   service:
     name: server
     port: 5000
