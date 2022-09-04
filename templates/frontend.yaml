@@ -1,0 +1,57 @@
+{{- $chartName := .Chart.Name -}}
+{{- $appVersion := .Chart.AppVersion -}}
+{{- with .Values.frontend }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $chartName }}-{{ .name }}
+spec:
+  selector:
+    matchLabels:
+      {{- toYaml .labels | nindent 6 }}
+  replicas: {{ .replicas }}
+  template:
+    metadata:
+      labels:
+        {{- toYaml .labels | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ $chartName }}-{{ .name }}
+        {{- with .image }}
+        image: {{ .name }}:{{ .tagName }}-{{ $appVersion }}
+        imagePullPolicy:  {{ .imagePullPolicy }}
+        {{- if .resources }}
+        resources:
+          {{- toYaml .resources | nindent 10 }}
+        {{- end }}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: {{ .containerPort }}
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: {{ .containerPort }}
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        {{- if .secretEnvName }}
+        envFrom:
+        - secretRef:
+            name: {{ .secretEnvName }}
+        {{- end }}
+        {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $chartName }}-{{ .name }}
+spec:
+  selector:
+    {{- toYaml .labels | nindent 4 }}
+  ports:
+    - name: {{ .service.name }}
+      port: {{ .service.port }}
+  type: {{ .service.type }}
+{{- end }}
