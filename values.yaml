@@ -4,7 +4,7 @@ frontend:
   labels:
     app: frontend
   image:
-    name: 
+    name: 644435390668.dkr.ecr.eu-west-1.amazonaws.com/ matan-task-scrape-portfolio
     tagName: frontend
     imagePullPolicy: Always
     resources: {}
@@ -21,7 +21,7 @@ backend:
   labels:
     app: backend
   image:
-    name: 
+    name: 644435390668.dkr.ecr.eu-west-1.amazonaws.com/ matan-task-scrape-portfolio
     tagName: backend
     imagePullPolicy: Always
     resources: {}
