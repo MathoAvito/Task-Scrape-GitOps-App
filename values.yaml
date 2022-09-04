@@ -1,0 +1,33 @@
+frontend:
+  name: frontend
+  replicas: 2
+  labels:
+    app: frontend
+  image:
+    name: 
+    tagName: frontend
+    imagePullPolicy: Always
+    resources: {}
+    containerPort: 80
+    secretEnvName: ""
+  service:
+    name: frontend
+    port: 80
+    type: ClusterIP
+
+backend:
+  name: backend
+  replicas: 2
+  labels:
+    app: backend
+  image:
+    name: 
+    tagName: backend
+    imagePullPolicy: Always
+    resources: {}
+    containerPort: 5000
+    secretEnvName: natours-secret
+  service:
+    name: server
+    port: 5000
+    type: ClusterIP
