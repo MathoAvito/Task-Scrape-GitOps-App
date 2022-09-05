@@ -3,7 +3,7 @@ name: task-scrape-app
 description: App for portfolio to manage tasks
 type: application
 version: 0.1.0
-appVersion: "1.07"
+appVersion: "1.08"
 dependencies:
   - name: mysql
     version: 9.3.0
