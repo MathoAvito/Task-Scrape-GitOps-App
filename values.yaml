@@ -36,6 +36,7 @@ mysql:
   fullnameOverride: "mysql"
   auth:
     rootPassword: "password"
+  architecture: replication
 
 
 
