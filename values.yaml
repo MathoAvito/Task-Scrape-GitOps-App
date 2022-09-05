@@ -52,6 +52,6 @@ mysql:
     containerPort: 3306
     secretEnvName: "dbsecret"
   service:
-    name: "mysql-headless"
+    name: mysql-headless
     port: 3306
     type: ClusterIP

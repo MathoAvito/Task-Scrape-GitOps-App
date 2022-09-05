@@ -36,7 +36,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .name }}
+  name: {{ .service.name }}
 spec:
   selector:
     {{- toYaml .labels | nindent 4 }}
