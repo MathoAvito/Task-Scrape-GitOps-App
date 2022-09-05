@@ -4,9 +4,9 @@ description: App for portfolio to manage tasks
 type: application
 version: 0.1.0
 appVersion: "1.11"
-dependencies:
-  - name: mysql
-    version: 9.3.0
-    repository: https://charts.bitnami.com/bitnami
-    alias: mysql
+# dependencies:
+#   - name: mysql
+#     version: 9.3.0
+#     repository: https://charts.bitnami.com/bitnami
+#     alias: mysql
 # change to dependency mysql

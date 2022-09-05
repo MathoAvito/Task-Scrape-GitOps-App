@@ -32,31 +32,26 @@ backend:
     port: 5000
     type: ClusterIP
 
-mysql:
-  fullnameOverride: "mysql"
-  auth:
-    rootPassword: "password"
-  architecture: replication
-
-
-
-
-
-
-
 # mysql:
-#   name: database
-#   replicas: 2
-#   labels:
-#     app: database
-#   image:
-#     # name: mysql:5.7
-#     # tagName: 5.7
-#     # imagePullPolicy: Always
-#     resources: {}
-#     containerPort: 3306
-#     secretEnvName: "dbsecret"
-#   service:
-#     name: "database"
-#     port: 3306
-#     type: ClusterIP
+#   fullnameOverride: "mysql"
+#   auth:
+#     rootPassword: "password"
+#   architecture: replication
+
+
+mysql:
+  name: database
+  replicas: 1
+  labels:
+    app: database
+  image:
+    name: mysql:5.7
+    tagName: 5.7
+    imagePullPolicy: Always
+    resources: {}
+    containerPort: 3306
+    secretEnvName: "dbsecret"
+  service:
+    name: "mysql-headless"
+    port: 3306
+    type: ClusterIP
