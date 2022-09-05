@@ -1,0 +1,47 @@
+{{- $chartName := .Chart.Name -}}
+{{- $appVersion := .Chart.AppVersion -}}
+{{- with .Values.mysql }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $chartName }}-{{ .name }}
+spec:
+  selector:
+    matchLabels:
+      {{- toYaml .labels | nindent 6 }}
+  # serviceName: "mysql"
+  replicas: {{ .replicas }}
+  template:
+    metadata:
+      labels:
+        {{- toYaml .labels | nindent 8 }}
+    spec:
+      containers:
+      {{- with .image }}
+      - name: {{ $chartName }}-{{ .name }}
+        image: {{ .name }}
+        # volumeMounts:
+        # - name: mysql-store
+        #   mountPath: /var/lib/mysql
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .secretEnvName }}
+                key: MYSQL_ROOT_PASSWORD
+      {{- end }}
+      
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .name }}
+spec:
+  selector:
+    {{- toYaml .labels | nindent 4 }}
+  ports:
+    - name: {{ .service.name }}
+      port: {{ .service.port }}
+  type: {{ .service.type }}
+{{- end }}
