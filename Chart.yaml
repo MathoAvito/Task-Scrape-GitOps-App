@@ -7,7 +7,7 @@ appVersion: "1.04"
 
 dependencies:
   - name: mysql
-    version: 13.0.1
+    version: 9.3.0
     repository: https://charts.bitnami.com/bitnami
     alias: mysql
 # change to dependency mysql
