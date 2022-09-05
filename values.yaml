@@ -32,7 +32,7 @@ backend:
     port: 5000
     type: ClusterIP
 
-database:
+mysql:
   name: database
   replicas: 2
   labels:
