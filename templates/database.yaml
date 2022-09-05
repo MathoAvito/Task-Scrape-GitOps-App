@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       {{- with .image }}
-      - name: {{ $chartName }}-{{ .name }}
+      - name: {{ $chartName }}-database
         image: {{ .name }}
         # volumeMounts:
         # - name: mysql-store
