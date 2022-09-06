@@ -12,7 +12,7 @@ data:
           location / {
             root   /usr/share/nginx/html;
             try_files $uri uri/ @server;
-            add_header FROM_NGINX;
+            add_header FROM "NGINX";
           }
           
           location @server { 
@@ -24,7 +24,6 @@ data:
             proxy_set_header Connection "upgrade";
             proxy_set_header x-real-ip $remote_addr;
             proxy_set_header host $host;
-        }
-          }
+         }
         }
       }

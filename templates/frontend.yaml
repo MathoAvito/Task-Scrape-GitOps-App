@@ -17,7 +17,6 @@ spec:
     spec:
       containers:
       - name: {{ $chartName }}-{{ .name }}
-        {{- with .image }}
         image: nginx:latest
         imagePullPolicy:  {{ .imagePullPolicy }}
         {{- if .resources }}
