@@ -18,29 +18,26 @@ spec:
       containers:
       - name: {{ $chartName }}-{{ .name }}
         {{- with .image }}
-        image: nginx:latest
+        image: {{ .name }}:{{ .tagName }}-{{ $appVersion }}
         imagePullPolicy:  {{ .imagePullPolicy }}
         {{- if .resources }}
         resources:
           {{- toYaml .resources | nindent 10 }}
         {{- end }}
-
-        volumeMounts:
-          - name: nginx-configmap
-            mountPath: /etc/nginx/nginx.conf
-            subPath: nginx.conf
-            readOnly: true
-
-      volumes:
-      - configMap:
-          name: conf-nginx
-          items:
-            - key: nginx.conf
-              path: nginx.conf
-        name: nginx-configmap
-      restartPolicy: Always
+        readinessProbe: #send get requests every x seconds to check if
+          httpGet:
+            path: /
+            port: {{ .containerPort }}
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: {{ .containerPort }}
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        {{- end }}
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
