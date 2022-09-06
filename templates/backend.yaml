@@ -24,6 +24,11 @@ spec:
         resources:
           {{- toYaml .resources | nindent 10 }}
         {{- end }}
+        {{- if .secretEnvName }}
+        envFrom:
+        - secretRef:
+            name: {{ .secretEnvName }}
+        {{- end }}
         {{- end }}
 ---
 apiVersion: v1
