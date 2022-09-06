@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: conf-nginx
+data:
+  nginx.conf: |
+      events {} 
+      http {
+          include mime.types;
+        server {
+          listen 80 default_server;
+          location / {
+            root   /usr/share/nginx/html;
+            try_files $uri uri/ @server;
+            add_header FROM_NGINX;
+          }
+          
+          location @server { 
+            proxy_pass         http://server:5000;
+            add_header X-uri "$uri";
+            add_header FROM "SERVER";
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header x-real-ip $remote_addr;
+            proxy_set_header host $host;
+        }
+          }
+        }
+      }

@@ -18,31 +18,29 @@ spec:
       containers:
       - name: {{ $chartName }}-{{ .name }}
         {{- with .image }}
-        image: {{ .name }}:{{ .tagName }}-{{ $appVersion }}
+        image: nginx:latest
         imagePullPolicy:  {{ .imagePullPolicy }}
         {{- if .resources }}
         resources:
           {{- toYaml .resources | nindent 10 }}
         {{- end }}
-        readinessProbe:
-          httpGet:
-            path: /
-            port: {{ .containerPort }}
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        livenessProbe:
-          httpGet:
-            path: /
-            port: {{ .containerPort }}
-          initialDelaySeconds: 15
-          periodSeconds: 20
-        {{- if .secretEnvName }}
-        envFrom:
-        - secretRef:
-            name: {{ .secretEnvName }}
-        {{- end }}
-        {{- end }}
+
+        volumeMounts:
+          - name: nginx-configmap
+            mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf
+            readOnly: true
+
+      volumes:
+      - configMap:
+          name: conf-nginx
+          items:
+            - key: nginx.conf
+              path: nginx.conf
+        name: nginx-configmap
+      restartPolicy: Always
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
