@@ -32,13 +32,6 @@ backend:
     port: 5000
     type: ClusterIP
 
-# mysql:
-#   fullnameOverride: "mysql"
-#   auth:
-#     rootPassword: "password"
-#   architecture: replication
-
-
 mysql:
   name: database
   replicas: 1
