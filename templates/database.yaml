@@ -29,6 +29,13 @@ spec:
               secretKeyRef:
                 name: {{ .secretEnvName }}
                 key: MYSQL_ROOT_PASSWORD
+          - name: MYSQL_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: {{ .secretEnvName }}
+                key: MYSQL_DATABASE
+
+                
       {{- end }}
       
 
