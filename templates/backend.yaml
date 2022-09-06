@@ -24,18 +24,18 @@ spec:
         resources:
           {{- toYaml .resources | nindent 10 }}
         {{- end }}
-        readinessProbe:
-          httpGet:
-            path: /
-            port: {{ .containerPort }}
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        livenessProbe:
-          httpGet:
-            path: /
-            port: {{ .containerPort }}
-          initialDelaySeconds: 15
-          periodSeconds: 20
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: {{ .containerPort }}
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 10
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: {{ .containerPort }}
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 20
         {{- if .secretEnvName }}
         envFrom:
         - secretRef:
