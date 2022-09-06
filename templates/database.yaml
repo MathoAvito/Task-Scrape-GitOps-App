@@ -9,7 +9,6 @@ spec:
   selector:
     matchLabels:
       {{- toYaml .labels | nindent 6 }}
-  # serviceName: "mysql"
   replicas: {{ .replicas }}
   template:
     metadata:
@@ -20,9 +19,6 @@ spec:
       {{- with .image }}
       - name: {{ $chartName }}-database
         image: {{ .name }}
-        # volumeMounts:
-        # - name: mysql-store
-        #   mountPath: /var/lib/mysql
         env:
           - name: MYSQL_ROOT_PASSWORD
             valueFrom:
@@ -34,8 +30,6 @@ spec:
               secretKeyRef:
                 name: {{ .secretEnvName }}
                 key: MYSQL_DATABASE
-
-                
       {{- end }}
       
 
