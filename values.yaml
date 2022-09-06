@@ -1,6 +1,6 @@
 frontend:
   name: frontend
-  replicas: 2
+  replicas: 1
   labels:
     app: frontend
   image:
@@ -17,7 +17,7 @@ frontend:
 
 backend:
   name: backend
-  replicas: 2
+  replicas: 1
   labels:
     app: backend
   image:
