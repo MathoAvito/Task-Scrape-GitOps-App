@@ -20,7 +20,7 @@ spec:
       - name: {{ $chartName }}-database
         image: {{ .name }}
         volumeMounts:
-        - name: mysql-pvc
+        - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
 
         env:
@@ -34,6 +34,11 @@ spec:
               secretKeyRef:
                 name: {{ .secretEnvName }}
                 key: MYSQL_DATABASE
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
+
       {{- end }}
 
 
