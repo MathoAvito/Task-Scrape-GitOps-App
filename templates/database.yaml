@@ -30,8 +30,12 @@ spec:
               secretKeyRef:
                 name: {{ .secretEnvName }}
                 key: MYSQL_DATABASE
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
       {{- end }}
-      
+
 
 ---
 apiVersion: v1
