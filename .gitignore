@@ -21,4 +21,4 @@
 .idea/
 *.tmproj
 static-config
-secret.yaml
+secrets.yaml
